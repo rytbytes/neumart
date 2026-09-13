@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreshPantry | Premium Groceries & Produce</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    
+    
+</head>
+<body>
+
+    <header>
+        <div class="container header-content">
+            <a href="#home" class="logo">
+                <span>🌿</span> FreshPantry
+            </a>
+            
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#catalog">Catalog</a></li>
+                    <!-- Admin link intentionally hidden from standard nav -->
+                </ul>
+            </nav>
+            
+            <div class="header-actions">
+                <button id="theme-btn" class="icon-btn" title="Toggle Theme">🌙</button>
+                
+                <nav class="nav-links">
+                    <a href="#login" class="btn-secondary" style="padding: 6px 14px; font-size: 0.9rem;">Login</a>
+                    <a href="#register" class="btn-primary" style="padding: 6px 14px; font-size: 0.9rem;">Register</a>
+                </nav>
+
+                <button id="cart-btn" class="icon-btn" title="View Cart">
+                    🛒<span id="cart-badge" class="cart-badge">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <dialog id="cart-modal">
+        <div class="dialog-header">
+            <h3 style="color: var(--primary);">Your Shopping Cart</h3>
+            <form method="dialog">
+                <button class="icon-btn">&times;</button>
+            </form>
+        </div>
+        <div class="dialog-body" id="cart-items-container">
+            <p style="text-align:center; color:var(--text-muted);">Your cart is empty.</p>
+        </div>
+        <div class="dialog-footer">
+            <form method="dialog">
+                <button class="btn-secondary" style="margin-right: 10px;">Keep Shopping</button>
+                <button type="button" class="btn-accent" onclick="alert('Proceeding to secure checkout...')">Checkout</button>
+            </form>
+        </div>
+    </dialog>
+
+    <main id="app-root">
+
+        <!-- ==========================================
+             VIEW: HOME (#home)
+             ========================================== -->
+        <div id="page-home" class="page-view container active">
+            <section class="hero">
+                <h1>Nature's Bounty, Delivered.</h1>
+                <p>Stock your pantry with the finest organic produce, premium nuts, and daily staples sourced directly from sustainable farms.</p>
+                <a href="#catalog" class="btn-primary" style="font-size: 1.1rem; padding: 12px 28px;">Shop the Catalog</a>
+            </section>
+        </div>
+
+        <!-- ==========================================
+             VIEW: CATALOG (#catalog)
+             ========================================== -->
+        <div id="page-catalog" class="page-view container">
+            <h2 style="margin-bottom: 25px; color: var(--primary);">Fresh Arrivals</h2>
+            <div class="catalog-grid">
+                
+                <!-- Product 1 -->
+                <article class="product-card">
+                    <img src="https://placehold.co/400x300/4b6b50/ffffff?text=Organic+Avocados" alt="Organic Hass Avocados">
+                    <div class="product-info">
+                        <h3 class="product-title">Organic Hass Avocados</h3>
+                        <p class="product-price">$5.99 / lb</p>
+                        <button class="btn btn-primary add-to-cart" data-id="p1" data-name="Organic Avocados" data-price="5.99">Add to Cart</button>
+                    </div>
+                </article>
+
+                <!-- Product 2 -->
+                <article class="product-card">
+                    <img src="https://placehold.co/400x300/8b5e34/ffffff?text=Roasted+Almonds" alt="Premium Roasted Almonds">
+                    <div class="product-info">
+                        <h3 class="product-title">Premium Roasted Almonds</h3>
+                        <p class="product-price">$12.50 / 500g</p>
+                        <button class="btn btn-primary add-to-cart" data-id="p2" data-name="Roasted Almonds" data-price="12.50">Add to Cart</button>
+                    </div>
+                </article>
+
+                <!-- Product 3 -->
+                <article class="product-card">
+                    <img src="https://placehold.co/400x300/e2c2a4/2e3b32?text=Quinoa+Grain" alt="White Quinoa Grain">
+                    <div class="product-info">
+                        <h3 class="product-title">White Quinoa Grain</h3>
+                        <p class="product-price">$7.20 / 1kg</p>
+                        <button class="btn btn-primary add-to-cart" data-id="p3" data-name="White Quinoa" data-price="7.20">Add to Cart</button>
+                    </div>
+                </article>
+
+                <!-- Product 4 -->
+                <article class="product-card">
+                    <img src="https://placehold.co/400x300/638f69/ffffff?text=Farm+Spinach" alt="Fresh Farm Spinach">
+                    <div class="product-info">
+                        <h3 class="product-title">Fresh Farm Spinach</h3>
+                        <p class="product-price">$3.49 / Bunch</p>
+                        <button class="btn btn-primary add-to-cart" data-id="p4" data-name="Fresh Spinach" data-price="3.49">Add to Cart</button>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+        <div id="page-register" class="page-view container">
+            <div class="form-wrapper">
+                <h2 style="margin-bottom: 20px; text-align: center; color: var(--primary);">Join FreshPantry</h2>
+                
+                <!-- Educational: Explicit Action & Method -->
+                <form action="/submit-registration" method="POST" id="form-register">
+                    
+                    <!-- Educational: Logical Grouping with Fieldset -->
+                    <fieldset>
+                        <legend>Personal Information</legend>
+                        
+                        <div class="form-group">
+                            <!-- Educational: Explicit Label Binding (for matches id) -->
+                            <label class="required" for="reg-fname">First Name</label>
+                            <input type="text" id="reg-fname" name="firstName" class="form-control" required minlength="2">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="required" for="reg-phone">Phone Number</label>
+                            <!-- Educational: Native Constraints (pattern) -->
+                            <input type="tel" id="reg-phone" name="phone" class="form-control" required pattern="[0-9]{10}" title="Must be exactly 10 digits" placeholder="e.g. 1234567890">
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Account Security & Location</legend>
+                        
+                        <div class="form-group">
+                            <label class="required" for="reg-email">Email Address</label>
+                            <input type="email" id="reg-email" name="email" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="required" for="reg-pwd">Password</label>
+                            <input type="password" id="reg-pwd" name="password" class="form-control" required minlength="8" placeholder="Minimum 8 characters">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reg-region">Preferred Delivery Region</label>
+                            <!-- Educational: Categorized Select -->
+                            <select id="reg-region" name="region" class="form-control">
+                                <option value="">Select a region (Optional)</option>
+                                <optgroup label="North America">
+                                    <option value="us">United States</option>
+                                    <option value="ca">Canada</option>
+                                </optgroup>
+                                <optgroup label="Europe">
+                                    <option value="uk">United Kingdom</option>
+                                    <option value="eu">Mainland Europe</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </fieldset>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem;">Create Account</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="page-login" class="page-view container">
+            <div class="form-wrapper" style="max-width: 400px; margin-top: 50px;">
+                <h2 style="margin-bottom: 25px; text-align: center; color: var(--primary);">Account Login</h2>
+                <div style="background: rgba(217, 83, 79, 0.1); border: 1px solid var(--error); padding: 10px; border-radius: var(--radius); margin-bottom: 20px; font-size: 0.85rem;">
+                    <strong>Admin Access:</strong> Use username <code>admin</code> and password <code>test@123</code>
+                </div>
+                
+                <form id="form-login">
+                    <div class="form-group">
+                        <label class="required" for="login-user">Username</label>
+                        <input type="text" id="login-user" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="required" for="login-pwd">Password</label>
+                        <input type="password" id="login-pwd" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Secure Login</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="page-dashboard" class="page-view">
+            <div class="dashboard-layout">
+                
+                <!-- Collapsible Sidebar -->
+                <aside class="sidebar" id="admin-sidebar">
+                    <h3 style="margin-bottom: 20px; color: var(--primary); padding-bottom: 10px; border-bottom: 1px solid var(--border);">Admin Console</h3>
+                    
+                    <!-- Multi-level Menu using Native HTML Details -->
+                    <details class="menu-group" open>
+                        <summary>Store Inventory</summary>
+                        <ul>
+                            <li><a href="#dashboard-table" class="dash-link">View All Products</a></li>
+                            <li><a href="#dashboard-add" class="dash-link">Add New Product</a></li>
+                        </ul>
+                    </details>
+                    
+                    <details class="menu-group" open>
+                        <summary>Developer Docs</summary>
+                        <ul>
+                            <li><a href="#dashboard-features" class="dash-link">HTML Semantics</a></li>
+                        </ul>
+                    </details>
+                    
+                    <div style="margin-top: 40px; border-top: 1px solid var(--border); padding-top: 20px;">
+                        <a href="#home" class="btn-secondary" style="display:block; text-align:center; font-size: 0.9rem;">Log Out</a>
+                    </div>
+                </aside>
+
+                <!-- Dashboard Content Area -->
+                <div class="dashboard-main">
+                    
+                    <!-- Toggle Button for Sidebar -->
+                    <button id="sidebar-toggle" class="sidebar-toggle-btn" title="Toggle Sidebar">
+                        <span style="font-size: 1.2rem;">☰</span> Menu
+                    </button>
+
+                    <!-- Sub-View: Default Welcome -->
+                    <div id="view-dashboard-home" class="dash-sub-view active">
+                        <h2>Welcome to FreshPantry Admin</h2>
+                        <p style="color: var(--text-muted); margin-top: 10px;">Select an option from the sidebar menu to manage the application.</p>
+                    </div>
+
+                    <div id="view-dashboard-table" class="dash-sub-view">
+                        <h2 style="margin-bottom: 5px;">Inventory Management</h2>
+                        <p style="margin-bottom: 20px; color: var(--text-muted);">Complex HTML table demonstrating semantic structure and scopes.</p>
+                        
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <caption>Current Stock Levels (Live)</caption>
+                                
+                                <thead>
+                                    <tr>
+                                        <th scope="col">SKU</th>
+                                        <th scope="col">Product Name</th>
+                                        <th scope="col">Category</th>
+                                        <th scope="col" class="text-right">Stock (Units)</th>
+                                        <th scope="col" class="text-right">Price</th>
+                                    </tr>
+                                </thead>
+                                
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">FP-101</th>
+                                        <td>Organic Hass Avocados</td>
+                                        <!-- Rowspan demo -->
+                                        <td rowspan="2">Fresh Produce</td> 
+                                        <td class="text-right">150</td>
+                                        <td class="text-right">$5.99</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">FP-102</th>
+                                        <td>Fresh Farm Spinach</td>
+                                        <td class="text-right">45</td>
+                                        <td class="text-right">$3.49</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">FP-201</th>
+                                        <td>Premium Roasted Almonds</td>
+                                        <td>Nuts & Seeds</td>
+                                        <td class="text-right">80</td>
+                                        <td class="text-right">$12.50</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">FP-301</th>
+                                        <td>White Quinoa Grain</td>
+                                        <td>Staples</td>
+                                        <td class="text-right">210</td>
+                                        <td class="text-right">$7.20</td>
+                                    </tr>
+                                </tbody>
+                                
+                                <tfoot>
+                                    <tr>
+                                        <!-- Colspan demo -->
+                                        <th scope="row" colspan="3" class="text-right">Total Warehouse Items:</th>
+                                        <td colspan="2" class="text-center"><strong>485 Units</strong></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="view-dashboard-add" class="dash-sub-view">
+                        <h2 style="margin-bottom: 20px;">Add New Inventory Item</h2>
+                        <form onsubmit="event.preventDefault(); alert('Product Added to Database!'); this.reset();">
+                            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                                <div class="form-group" style="flex: 1; min-width: 250px;">
+                                    <label class="required" for="add-name">Product Title</label>
+                                    <input type="text" id="add-name" class="form-control" required>
+                                </div>
+                                <div class="form-group" style="flex: 1; min-width: 200px;">
+                                    <label class="required" for="add-cat">Category</label>
+                                    <select id="add-cat" class="form-control" required>
+                                        <option value="">Select...</option>
+                                        <option value="produce">Fresh Produce</option>
+                                        <option value="nuts">Nuts & Seeds</option>
+                                        <option value="staples">Staples</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="add-desc">Product Description</label>
+                                <textarea id="add-desc" class="form-control" rows="4"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Publish Product</button>
+                        </form>
+                    </div>
+
+                    <div id="view-dashboard-features" class="dash-sub-view">
+                        <h2 style="margin-bottom: 10px;">HTML Native Semantics</h2>
+                        
+                        <!-- Educational: In-Page Anchor Navigation -->
+                        <nav style="background: var(--bg-body); padding: 15px; border-radius: var(--radius); margin-bottom: 30px;">
+                            <strong>Jump to Demo:</strong>
+                            <a href="#demo-autosuggest" class="in-page-link" style="margin-left:15px; color:var(--primary); text-decoration:underline;">Auto-suggest</a>
+                            <a href="#demo-interact" class="in-page-link" style="margin-left:15px; color:var(--primary); text-decoration:underline;">Interactivity</a>
+                            <a href="#demo-code" class="in-page-link" style="margin-left:15px; color:var(--primary); text-decoration:underline;">Code Tags</a>
+                        </nav>
+
+                        <!-- Demo 1: Auto-Suggest -->
+                        <div id="demo-autosuggest" class="feature-section">
+                            <h3>1. Native Auto-Suggest (Datalist)</h3>
+                            <p style="margin-bottom: 10px; color: var(--text-muted);">The <code>&lt;datalist&gt;</code> element gives dropdown suggestions to standard text inputs without JS.</p>
+                            <label for="vendor-search">Search Vendors:</label>
+                            <input type="text" id="vendor-search" list="vendor-list" class="form-control" style="max-width: 300px; margin-top: 5px;">
+                            <datalist id="vendor-list">
+                                <option value="Green Valley Farms">
+                                <option value="Organic Nut Co.">
+                                <option value="Sunny Meadows Produce">
+                                <option value="Earth Staples Ltd.">
+                            </datalist>
+                        </div>
+
+                        <!-- Demo 2: Interactivity -->
+                        <div id="demo-interact" class="feature-section">
+                            <h3>2. Zero-JS Interactivity (Details/Summary)</h3>
+                            <p style="margin-bottom: 10px; color: var(--text-muted);">Expandable accordions built natively into the browser.</p>
+                            <details style="background: var(--bg-body); padding: 15px; border-radius: var(--radius); border: 1px solid var(--border);">
+                                <summary style="font-weight: 600; cursor: pointer; user-select: none;">Click to reveal hidden API Keys</summary>
+                                <p style="margin-top: 15px; font-family: monospace; color: var(--error);">SK_LIVE_9876543210ABCDEF</p>
+                            </details>
+                        </div>
+
+                        <!-- Demo 3: Code Semantics -->
+                        <div id="demo-code" class="feature-section">
+                            <h3>3. Code & Keyboard Semantics</h3>
+                            <p style="margin-bottom: 10px; color: var(--text-muted);">Formatting technical documentation accurately.</p>
+                            
+                            <p>To restart the backend server, open terminal and press <kbd>Ctrl</kbd> + <kbd>C</kbd>, then run:</p>
+                            <pre><code>npm run restart:server</code></pre>
+                            <p>Expected output: <br><samp>Server running on port 3000...</samp></p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    
+    <script src="js/app.js"></script>
+</body>
+</html>
